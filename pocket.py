@@ -8,7 +8,7 @@ Usage:
     pocket add <link>...
     pocket archive <id>...
     pocket delete <id>...
-    pocket take <n> [--then-delete | --then-archive] [--oldest | --random] [--attrs=<attrs>]
+    pocket take <n> [--then-delete | --then-archive] [--oldest] [--attrs=<attrs>]
     pocket (-h | --help)
     pocket --version
 
@@ -56,20 +56,30 @@ def run():
                 oldest=args['--oldest'],
                 delete=args['--then-delete'],
                 archive=args['--then-archive'],
-                # random=args['--random'],
                 )
+
+        # TODO allow custom filters
+        articles = []
+        for item in items:
+            article = {
+                'id': item['item_id'],
+                'url': item['given_url'],
+                'favorite': item['favorite'],
+                'word_count': item['word_count'],
+            }
+            articles.append(article)
 
         if sys.stdout.isatty():
             table = prettytable.PrettyTable()
-            table.field_names = items[0].keys()
+            table.field_names = articles[0].keys()
             table.align = 'l'
 
-            for item in items:
-                table.add_row(item.values())
+            for article in articles:
+                table.add_row(article.values())
 
             print table
         else:
-            print '\n'.join('\t'.join(item.values()) for item in items)
+            print '\n'.join('\t'.join(article.values()) for article in articles)
 
         return
 

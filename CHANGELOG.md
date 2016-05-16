@@ -5,3 +5,6 @@
  - add `count` command
  - add `authenticate` command
  - add `take` command
+ - add `add` command
+ - add `archive` command
+ - add `delete` command

@@ -7,11 +7,9 @@ class PocketException(Exception):
 def authenticate(consumer_key):
     request_token = _get_request_token(consumer_key)
 
-    # TODO accept a handler here
     print 'go to https://getpocket.com/auth/authorize?request_token=' + request_token
     raw_input('type ENTER when the application is authorized')
 
-    # TODO return credentials
     return _get_access_token(consumer_key, request_token)
 
 
@@ -45,8 +43,6 @@ def count(consumer_key, access_token, favorite=False, archive=False, unread=Fals
     return len(items.values())
 
 
-# TODO handle random
-# TODO handle filters
 def take(consumer_key, access_token, number, oldest=False, attributes=None, archive=False, delete=False):
     payload = {'consumer_key': consumer_key, 'access_token': access_token, 'state': 'unread', 'detailType': 'complete', 'count': number, 'sort': 'newest'}
 
@@ -74,21 +70,18 @@ def filter_attributes(attributes, item):
     return {key: value for key, value in item.items() if key in attributes}
 
 
-# TODO handle errors
 def archive(consumer_key, access_token, ids):
     actions = [{'action': 'archive', 'item_id': item_id} for item_id in ids]
     payload = {'consumer_key': consumer_key, 'access_token': access_token, 'actions': actions}
     _requests(method='post', resource='/send', data=payload)
 
 
-# TODO handle errors
 def delete(consumer_key, access_token, ids):
     actions = [{'action': 'delete', 'item_id': item_id} for item_id in ids]
     payload = {'consumer_key': consumer_key, 'access_token': access_token, 'actions': actions}
     _requests(method='post', resource='/send', data=payload)
 
 
-# TODO handle errors
 def add(consumer_key, access_token, links):
     actions = [{'action': 'add', 'url': link} for link in links]
     payload = {'consumer_key': consumer_key, 'access_token': access_token, 'actions': actions}
