@@ -15,11 +15,13 @@ First you need to get the source.
     $ cd
     $ git clone https://github.com/kevinlebrun/pocket
     $ cd pocket
-    $ python ./pocket/pocket.py --help
+    $ mkvirtualenv pocket
+    $ pip install -r requirements.txt
+    $ python ./pocket.py --help
 
 What's following is optional but recommended if for convenience.
 
-    $ python ./pocket/pocket.py authenticate
+    $ python ./pocket.py authenticate
 
 At this point, you will need to copy the given URL, paste it into your browser,
 accept the application, and type ENTER in the command line. The Pocket
@@ -29,7 +31,7 @@ access token is printed.
 
 You should be able to count unread items.
 
-    $ python ./pocket/pocket.py count --unread
+    $ python ./pocket.py count --unread
 
 ## License
 
